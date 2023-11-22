@@ -1,15 +1,14 @@
 import pandas as pd
 import PySimpleGUI as sg
 
-sg.theme('DarkBlue')
+sg.theme('LightPurple')
 
 EXCEL_FILE = "absensi.xlsx"
 df = pd.read_excel(EXCEL_FILE)
 
 layout = [
-    [sg.Text('MASUKKAN DATA KAMU')],
-    [sg.Text('Nama', size=(15, 1)), sg.InputText(key='NAMA')],
     [sg.Text('NIM', size=(15, 1)), sg.InputText(key='NIM')],
+    [sg.Text('Nama', size=(15, 1)), sg.InputText(key='NAMA')],
     [sg.Text('Prodi', size=(15, 1)), sg.InputText(key='PRODI')],
     [sg.Text('Kode Kelas', size=(15, 1)), sg.InputText(key='KODE KELAS')],
     [sg.Text('Tanggal', size=(15, 1)), sg.InputText(key='TANGGAL'),
@@ -17,27 +16,26 @@ layout = [
     [sg.Text('Status', size=(15, 1)),
      sg.Radio('Hadir', 'Status', key='Hadir', default=True),
      sg.Radio('Tidak Hadir', 'Status', key='Tidak Hadir')],
-    [sg.Submit(), sg.Button('clear'), sg.Exit()]
+    [sg.Submit(), sg.Button('Clear'), sg.Exit()]
 ]
 
-window = sg.Window('ABSENSI MAHASISWA', layout)
+window = sg.Window('ABSENSI MAHASISWA', layout, font=('Helvetica', 14, 'bold'))
 
 def clear_input():
     for key in values:
         window[key]('')
     return None
-    return None
 
 while True:
     event, values = window.read()
 
-    if event == sg.WIN_CLOSED or event == 'EXIT':
+    if event == sg.WIN_CLOSED or event == 'Exit':
         break
 
-    if event == 'clear':
+    elif event == 'Clear':
         clear_input()
 
-    if event == 'Submit':
+    elif event == 'Submit':
         # Pemilihan status hadir/tidak
         status = 'Hadir' if values['Hadir'] else 'Tidak Hadir'
 
